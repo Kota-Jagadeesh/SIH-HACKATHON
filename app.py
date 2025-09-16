@@ -1,13 +1,17 @@
 from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 from flask_session import Session
 import os
 import bcrypt
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+app.config["SESSION_TYPE"] = "filesystem"
+app.config["SESSION_FILE_DIR"] = os.path.join(app.root_path, 'flask_session')
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URI")
+engine = create_engine("sqlite://", echo=True)
 db = SQLAlchemy(app)
 CORS(app)
 Session(app)
@@ -15,9 +19,12 @@ Session(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, auto_increment=True)
-    name = db.Column(db.String(255))
-    username = db.Column(db.String(255), unique=True)
-    password = db.Column(db.String(511), password=True)
+    name = db.Column(db.String(255), nullable=False)
+    username = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(511), nullable=False)
+
+with app.app_context():
+    db.create_all()
 
 
 @app.route("/api/register/", methods=["POST"])
