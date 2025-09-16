@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, session
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, select
 from flask_session import Session
 import os
 import bcrypt
@@ -18,7 +18,7 @@ Session(app)
 
 
 class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True, auto_increment=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), nullable=False)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(511), nullable=False)
@@ -45,13 +45,13 @@ def register():
 
 @app.route("/api/login/", methods=["POST"])
 def login():
-    data = request.json()
+    data = request.json
     if not all(i in data for i in ["username", "password"]):
         return jsonify({"error": "Missing required fields"}), 200
-    user = db.query(User).fitler(username=data.username)
+    user = User.query.filter_by(username=data['username']).first()
     if not user:
         return jsonify({"error": "No such user found"}), 404
-    if bcrypt.checkpw(user.password):
+    if bcrypt.checkpw(data['password'].encode('utf-8'), user.password):
         session["username"] = user.username
         return jsonify({"success": "logged in"}), 200
     else:
@@ -60,6 +60,5 @@ def login():
 
 @app.route("/api/logout", methods=["POST"])
 def logout():
-    data = request.json()
-    session.pop()
+    session.clear()
     return jsonify({"success": "user logged out"}), 200
