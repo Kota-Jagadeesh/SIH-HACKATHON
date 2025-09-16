@@ -45,3 +45,9 @@ def login():
         return jsonify({'success': 'logged in'}), 200
     else:
         return jsonify({'fail': 'Incorrect password'}), 403
+
+@app.route('/api/logout', methods=['POST'])
+def logout():
+    data = request.json()
+    session.pop()
+    return jsonify({'success': 'user logged out'}), 200
