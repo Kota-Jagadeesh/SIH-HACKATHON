@@ -23,6 +23,10 @@ migrate_working_dir/
 # is commented out by default.
 .vscode/
 
+# Database files
+flask_session/
+instance/
+
 # environment files
 .venv
 .env
