@@ -12,10 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Auth App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'Roboto',
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'Roboto'),
       home: SignInScreen(),
       debugShowCheckedModeBanner: false,
     );
@@ -34,7 +31,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _rememberMe = false;
   bool _obscurePassword = true;
-   bool _isLoading = false;
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -57,18 +54,18 @@ class _SignInScreenState extends State<SignInScreen> {
 
     // For demo purposes, accept any non-empty email/password
     // Replace this with your actual authentication logic
-// This would come from your auth service
+    // This would come from your auth service
 
     setState(() {
       _isLoading = false;
     });
 
-      // Navigate to HomePage and remove all previous routes
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-        (route) => false,
-      );
+    // Navigate to HomePage and remove all previous routes
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+      (route) => false,
+    );
   }
 
   void _showErrorDialog(String message) {
@@ -87,7 +84,6 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,10 +96,7 @@ class _SignInScreenState extends State<SignInScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF4A90E2),
-                  Color(0xFF357ABD),
-                ],
+                colors: [Color(0xFF4A90E2), Color(0xFF357ABD)],
               ),
             ),
             child: SafeArea(
@@ -166,7 +159,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 padding: EdgeInsets.all(30),
                 child: SingleChildScrollView(
                   child: Column(
-                    children: [                      
+                    children: [
                       SizedBox(height: 20),
                       TextField(
                         controller: _emailController,
@@ -179,7 +172,10 @@ class _SignInScreenState extends State<SignInScreen> {
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide.none,
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 16,
+                          ),
                         ),
                       ),
                       SizedBox(height: 15),
@@ -194,10 +190,15 @@ class _SignInScreenState extends State<SignInScreen> {
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide.none,
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 16,
+                          ),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                              _obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
                               color: Colors.grey.shade600,
                             ),
                             onPressed: () {
@@ -251,7 +252,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         width: double.infinity,
                         height: 55,
                         child: ElevatedButton(
-                          onPressed: _isLoading ? null : _handleLogin, // Add the login function
+                          onPressed: _isLoading
+                              ? null
+                              : _handleLogin, // Add the login function
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFF4A90E2),
                             shape: RoundedRectangleBorder(
@@ -265,7 +268,9 @@ class _SignInScreenState extends State<SignInScreen> {
                                   height: 20,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
-                                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white,
+                                    ),
                                   ),
                                 )
                               : Text(
@@ -293,7 +298,9 @@ class _SignInScreenState extends State<SignInScreen> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => SignUpScreen()),
+                                MaterialPageRoute(
+                                  builder: (context) => SignUpScreen(),
+                                ),
                               );
                             },
                             child: Text(
@@ -353,10 +360,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF4A90E2),
-                  Color(0xFF357ABD),
-                ],
+                colors: [Color(0xFF4A90E2), Color(0xFF357ABD)],
               ),
             ),
             child: SafeArea(
@@ -370,10 +374,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          icon: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                          ),
+                          icon: Icon(Icons.arrow_back, color: Colors.white),
                         ),
                         Expanded(
                           child: Text(
@@ -450,7 +451,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none,
                                 ),
-                                contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 16,
+                                ),
                               ),
                             ),
                           ),
@@ -466,7 +470,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none,
                                 ),
-                                contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 16,
+                                ),
                               ),
                             ),
                           ),
@@ -484,7 +491,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide.none,
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 16,
+                          ),
                         ),
                       ),
                       SizedBox(height: 15),
@@ -498,7 +508,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide.none,
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 16,
+                          ),
                           suffixIcon: Icon(
                             Icons.calendar_today,
                             color: Colors.grey.shade600,
@@ -514,7 +527,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           );
                           if (pickedDate != null) {
                             setState(() {
-                              _dateController.text = "${pickedDate.day.toString().padLeft(2, '0')}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.year}";
+                              _dateController.text =
+                                  "${pickedDate.day.toString().padLeft(2, '0')}/${pickedDate.month.toString().padLeft(2, '0')}/${pickedDate.year}";
                             });
                           }
                         },
@@ -523,7 +537,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       Row(
                         children: [
                           SizedBox(
-                            width: 80,
+                            width: 110,
                             child: DropdownButtonFormField<String>(
                               initialValue: _selectedCountryCode,
                               decoration: InputDecoration(
@@ -533,12 +547,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none,
                                 ),
-                                contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                  vertical: 16,
+                                ),
                               ),
                               items: [
-                                DropdownMenuItem(value: '+1', child: Row(children: [Text('🇺🇸'), SizedBox(width: 5), Text('+1')])),
-                                DropdownMenuItem(value: '+91', child: Row(children: [Text('🇮🇳'), SizedBox(width: 5), Text('+91')])),
-                                DropdownMenuItem(value: '+44', child: Row(children: [Text('🇬🇧'), SizedBox(width: 5), Text('+44')])),
+                                DropdownMenuItem(
+                                  value: '+1',
+                                  child: Row(
+                                    children: [
+                                      Text('🇺🇸'),
+                                      SizedBox(width: 5),
+                                      Text('+1'),
+                                    ],
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: '+91',
+                                  child: Row(
+                                    children: [
+                                      Text('🇮🇳'),
+                                      SizedBox(width: 5),
+                                      Text('+91'),
+                                    ],
+                                  ),
+                                ),
+                                DropdownMenuItem(
+                                  value: '+44',
+                                  child: Row(
+                                    children: [
+                                      Text('🇬🇧'),
+                                      SizedBox(width: 5),
+                                      Text('+44'),
+                                    ],
+                                  ),
+                                ),
                               ],
                               onChanged: (value) {
                                 setState(() {
@@ -560,7 +604,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none,
                                 ),
-                                contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                                contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 16,
+                                ),
                               ),
                             ),
                           ),
@@ -578,10 +625,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide.none,
                           ),
-                          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 16,
+                          ),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                              _obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
                               color: Colors.grey.shade600,
                             ),
                             onPressed: () {
