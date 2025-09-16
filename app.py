@@ -9,7 +9,7 @@ import bcrypt
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 app.config["SESSION_TYPE"] = "filesystem"
-app.config["SESSION_FILE_DIR"] = os.path.join(app.root_path, 'flask_session')
+app.config["SESSION_FILE_DIR"] = os.path.join(app.root_path, "flask_session")
 app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URI")
 engine = create_engine("sqlite://", echo=True)
 db = SQLAlchemy(app)
@@ -23,22 +23,23 @@ class User(db.Model):
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(511), nullable=False)
 
+
 with app.app_context():
     db.create_all()
 
 
 @app.route("/api/register/", methods=["POST"])
 def register():
-    data = request.json()
+    data = request.json
     if not all(i in data for i in ["name", "username", "password"]):
         return jsonify({"error": "Missing required fields"}), 400
-    password = data.password
+    password = data["password"]
     password_bytes = password.encode("utf-8")
     salt = bcrypt.gensalt(rounds=12)
     hash = bcrypt.hashpw(password_bytes, salt)
-    user = User(name=data.name, username=data.username, password=hash)
-    db.add(user)
-    db.commit()
+    user = User(name=data["name"], username=data["username"], password=hash)
+    db.session.add(user)
+    db.session.commit()
     return jsonify({"Success": "Registered user"}), 200
 
 
